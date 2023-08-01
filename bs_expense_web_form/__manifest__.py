@@ -9,9 +9,12 @@
     'author': "Brain Station 23 Ltd.",
     'website': "http://brainstation-23.com",
     'category': '',
-    'depends': ['hr', 'website'],
+    'depends': ['hr', 'hr_expense', 'product', 'website'],
     'data': [
-        'views/hr_employee_views.xml'
+        'views/hr_employee_views.xml',
+        'views/expense_template.xml',
+        'views/web_menu.xml',
+        'views/expense_submitted_page.xml',
     ],
     'license': 'OPL-1',
     'installable': True,
