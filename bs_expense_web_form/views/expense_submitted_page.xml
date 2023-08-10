@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="expense_submission_successful">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="form-group" style="text-align: center; padding-top: 15%; padding-bottom: 10%;">
+                        <div>
+                            <h3>
+                                Your expense is submitted successfully.
+                                <br/>
+                                As soon as possible it will be disbursed after approval !
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
