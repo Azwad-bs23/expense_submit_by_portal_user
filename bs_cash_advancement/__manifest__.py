@@ -9,6 +9,8 @@
     'category': '',
     'depends': ['hr', 'hr_expense', 'payment'],
     'data': [
+        'security/ir.model.access.csv',
+        'views/advance_payment_views.xml',
     ],
     'license': 'OPL-1',
     'installable': True,
