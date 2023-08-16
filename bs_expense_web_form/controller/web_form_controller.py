@@ -32,3 +32,11 @@ class WebsiteForm(http.Controller):
         else:
             # TODO : here new message will be shown "Something went wrong! please submit your expense again"
             return True
+
+    @http.route('/my_expenses', type='http', auth='user', website=True)
+    def my_expenses_list(self):
+        expenses = request.env['hr.expense'].sudo().search([('employee_id.user_id', '=', request.env.user.id)])
+        values = {}
+        values.update({'expenses': expenses})
+        return request.render("bs_expense_web_form.my_expenses", values)
+
