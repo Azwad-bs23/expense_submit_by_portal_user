@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="approve_configuration" class="oe_highlight" string="Approve" type="object"
+                    <button name="approve_configuration" class="oe_highlight" string="Confirm" type="object"
                             attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>

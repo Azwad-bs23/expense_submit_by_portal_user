@@ -11,6 +11,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/advance_payment_views.xml',
+        'views/advance_payment_configuration_views.xml',
     ],
     'license': 'OPL-1',
     'installable': True,
