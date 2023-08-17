@@ -7,5 +7,11 @@
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">77</field>
         </record>
+        <record id="website_menu_advance_payment" model="website.menu">
+            <field name="name">Advance Payment</field>
+            <field name="url">/advance-payment/request</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">88</field>
+        </record>
     </data>
 </odoo>

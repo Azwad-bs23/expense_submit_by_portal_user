@@ -40,3 +40,11 @@ class WebsiteForm(http.Controller):
         values.update({'expenses': expenses})
         return request.render("bs_expense_web_form.my_expenses", values)
 
+    @http.route('/advance-payment/request', type='http', auth='user', website=True)
+    def advance_payment_request_website_form(self):
+        currency_ids = request.env['res.currency'].sudo().search([])
+        payment_types = request.env['advance.payment.configuration'].sudo().search([('state', '=', 'confirm')])
+        values = {}
+        values.update({'currency': currency_ids, 'payments' : payment_types})
+        return request.render("bs_expense_web_form.advance_payment_request", values)
+

@@ -17,6 +17,7 @@
         'views/expense_submitted_page.xml',
         'views/expenses_in_docs.xml',
         'views/my_expenses_list.xml',
+        'views/advance_payment_request.xml',
     ],
     'license': 'OPL-1',
     'installable': True,
