@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="website_menu_advance_payment" model="website.menu">
+            <field name="name">Advance Payment</field>
+            <field name="url">/advance-payment/request</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">89</field>
+        </record>
+    </data>
+</odoo>

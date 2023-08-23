@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_cash_advancement" name="Show Cash Advancement" inherit_id="portal.portal_my_home" customize_show="True" priority="32">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <br/>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">My Cash Advancement</t>
+                <t t-set="url" t-value="'/my_cash_advancement'"/>
+                <t t-set="placeholder_count" t-value="'cash_advancement_count'"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -8,20 +8,22 @@
                 <header>
                     <button name="approve_configuration" class="oe_highlight" string="Confirm" type="object"
                             attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="back_to_draft" class="oe_highlight" string="Back to Draft" type="object"
+                            attrs="{'invisible': [('state', '!=', 'confirm')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <label for="name"/>
                         <h1>
-                            <field name="name" placeholder="e.g. Advance Payment of .."/>
+                            <field name="name" placeholder="e.g. Advance Payment of .." attrs="{'readonly': [('state', '=', 'confirm')]}"/>
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="journal_id"/>
-                            <field name="credit_account"/>
-                            <field name="debit_account"/>
+                            <field name="journal_id" domain="[('type', 'in', ('bank', 'cash'))]" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="credit_account" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="debit_account" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
                         </group>
                     </group>
                 </sheet>

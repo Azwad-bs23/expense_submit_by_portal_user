@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="my_cash_advancement" name="My Expenses">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
+                         data-snippet="s_title" data-scroll-background-ratio="1">
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>My Cash Advancement</h1>
+                    </div>
+                </section>
+            </div>
+            <br/>
+            <div class="container">
+                <t t-if="advancement" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Employee</th>
+                            <th>Currency</th>
+                            <th>Payment Method</th>
+                            <th class='d-none d-md-table-cell'>Requested Amount</th>
+                            <th class="text-center">Approved Amount</th>
+                            <th class="text-right">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="advancement" t-as="advance">
+                            <tr>
+                                <td>
+                                    <span t-field="advance.employee_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="advance.currency_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="advance.advance_payment_config_id"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="advance.requested_amount"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="advance.approved_amount"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="advance.state"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+                <t t-else="">
+                     <p class='o_view_nocontent_smiling_face'>You have no Cash Advancement Yet !!</p>
+                </t>
+            </div>
+            <br/>
+        </t>
+    </template>
+</odoo>

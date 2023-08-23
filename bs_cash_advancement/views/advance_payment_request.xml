@@ -13,7 +13,7 @@
 
                 <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
                     <div class="container">
-                        <form action="/advance-payment/request" method="post" enctype="multipart/form-data"
+                        <form action="/cash_advancement/submit" method="post" enctype="multipart/form-data"
                               class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="s_website_form_rows row s_col_no_bgcolor">

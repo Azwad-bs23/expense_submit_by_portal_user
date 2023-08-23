@@ -2,7 +2,7 @@
 
 from datetime import date
 from odoo import models, fields, api, _
-
+from odoo.http import request
 
 class AdvancePayment(models.Model):
     _name = 'advance.payment'
@@ -17,7 +17,7 @@ class AdvancePayment(models.Model):
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee', required=True, store=True)
     partner_id = fields.Many2one(comodel_name='res.partner', string='Partner', related='employee_id.user_id.partner_id', store=True)
     currency_id = fields.Many2one(comodel_name='res.currency', string='Currency', store=True)
-    requested_amount = fields.Float(string="Requested Amount", tracking=True)
+    requested_amount = fields.Float(string="Requested Amount", tracking=True, readonly=True)
     approved_amount = fields.Float(string="Approved Amount", required=True, tracking=True)
     approved_date = fields.Date(string='Approved Date')
     advance_payment_config_id = fields.Many2one(comodel_name='advance.payment.configuration', string='AP Configuration', store=True)
@@ -35,4 +35,12 @@ class AdvancePayment(models.Model):
         return self.write({'state': 'requested'})
 
     def approve_to_advance_payment(self):
-        return self.write({'approved_date': date.today(), 'state': 'approved'})
+        values = {
+            'payment_type': 'outbound',
+            'partner_id': self.partner_id.id,
+            'amount': self.approved_amount,
+            'journal_id': self.advance_payment_config_id.journal_id.id,
+            'currency_id': self.currency_id.id,
+        }
+        payment = request.env['account.payment'].sudo().create(values)
+        return self.write({'approved_date': date.today(), 'state': 'approved', 'payment_id': payment})
