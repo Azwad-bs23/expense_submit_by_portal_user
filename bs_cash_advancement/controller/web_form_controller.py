@@ -17,7 +17,7 @@ class WebsiteForm(http.Controller):
         return request.render("bs_cash_advancement.advance_cash_submission_successful")
 
     @http.route('/cash_advancement/submission/error', type='http', auth='user', website=True)
-    def cash_advancement_submission_successful(self):
+    def cash_advancement_submission_error(self):
         return request.render("bs_cash_advancement.error_500")
 
     @http.route('/cash_advancement/submit', type='http', auth="public", methods=['POST'])
