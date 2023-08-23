@@ -22,7 +22,7 @@ class WebsiteForm(http.Controller):
     @http.route('/expense/submit', type='http', auth="public", methods=['POST'])
     def create_expense_with_values(self, **kwargs):
         employee = request.env['hr.employee'].sudo().search([('user_id', '=', request.env.user.id)]).id
-
+        product_uom = request.env['product.product'].sudo().search([('id', '=', int(kwargs.get('product_id', False)))]).uom_id.id
         values = {
             'name': kwargs.get('description', False),
             'product_id': int(kwargs.get('product_id', False)),
@@ -30,6 +30,7 @@ class WebsiteForm(http.Controller):
             'total_amount': kwargs.get('total_expense', False),
             'employee_id': employee,
             'unit_amount': kwargs.get('total_expense', False),
+            'product_uom_id': product_uom,
         }
         expense = request.env['hr.expense'].sudo().create(values)
         if expense:
