@@ -33,8 +33,7 @@ class WebsiteForm(http.Controller):
         }
         expense = request.env['advance.payment'].sudo().create(values)
         if expense:
-            # return request.redirect_query('/cash_advancement/submission/successful')
-            return request.redirect_query('/cash_advancement/submission/error')
+            return request.redirect_query('/cash_advancement/submission/successful')
         else:
             return request.redirect_query('/cash_advancement/submission/error')
 
