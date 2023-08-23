@@ -15,9 +15,14 @@ class WebsiteForm(http.Controller):
     def expense_submission_successful(self):
         return request.render("bs_expense_web_form.expense_submission_successful")
 
+    @http.route('/expense/submission/error', type='http', auth='user', website=True)
+    def expense_submission_error(self):
+        return request.render("bs_expense_web_form.error_500")
+
     @http.route('/expense/submit', type='http', auth="public", methods=['POST'])
     def create_expense_with_values(self, **kwargs):
         employee = request.env['hr.employee'].sudo().search([('user_id', '=', request.env.user.id)]).id
+
         values = {
             'name': kwargs.get('description', False),
             'product_id': int(kwargs.get('product_id', False)),
@@ -30,8 +35,7 @@ class WebsiteForm(http.Controller):
         if expense:
             return request.redirect_query('/expense/submission/successful')
         else:
-            # TODO : here new message will be shown "Something went wrong! please submit your expense again"
-            return True
+            return request.redirect_query('/expense/submission/error')
 
     @http.route('/my_expenses', type='http', auth='user', website=True)
     def my_expenses_list(self):

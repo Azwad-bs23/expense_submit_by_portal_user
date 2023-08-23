@@ -15,6 +15,7 @@
         'views/expense_template.xml',
         'views/web_menu.xml',
         'views/expense_submitted_page.xml',
+        'views/error_500.xml',
         'views/expenses_in_docs.xml',
         'views/my_expenses_list.xml',
     ],

@@ -15,6 +15,7 @@
         'views/advance_payment_configuration_views.xml',
         'views/advance_payment_request.xml',
         'views/advance_cash_submitted_page.xml',
+        'views/error_500.xml',
         'views/cash_advancement_in_docs.xml',
         'views/my_cash_advancement_list.xml',
 

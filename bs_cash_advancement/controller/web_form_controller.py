@@ -16,6 +16,10 @@ class WebsiteForm(http.Controller):
     def cash_advancement_submission_successful(self):
         return request.render("bs_cash_advancement.advance_cash_submission_successful")
 
+    @http.route('/cash_advancement/submission/error', type='http', auth='user', website=True)
+    def cash_advancement_submission_successful(self):
+        return request.render("bs_cash_advancement.error_500")
+
     @http.route('/cash_advancement/submit', type='http', auth="public", methods=['POST'])
     def create_cash_advancement_with_values(self, **kwargs):
         employee = request.env['hr.employee'].sudo().search([('user_id', '=', request.env.user.id)]).id
@@ -29,10 +33,10 @@ class WebsiteForm(http.Controller):
         }
         expense = request.env['advance.payment'].sudo().create(values)
         if expense:
-            return request.redirect_query('/cash_advancement/submission/successful')
+            # return request.redirect_query('/cash_advancement/submission/successful')
+            return request.redirect_query('/cash_advancement/submission/error')
         else:
-            # TODO : here new message will be shown "Something went wrong! please submit your expense again"
-            return True
+            return request.redirect_query('/cash_advancement/submission/error')
 
     @http.route('/my_cash_advancement', type='http', auth='user', website=True)
     def my_cash_advancement(self):
