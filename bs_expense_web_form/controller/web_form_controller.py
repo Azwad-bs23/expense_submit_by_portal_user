@@ -44,24 +44,6 @@ class WebsiteForm(http.Controller):
     def my_expenses_list(self, page=1, sortby='id', search="", search_in="All", **kwargs):
         expenses = request.env['hr.expense'].sudo().search([('employee_id.user_id', '=', request.env.user.id)])
 
-        total_approved_amount = 0
-        total_paid_amount = 0
-        total_amount_to_submit = 0
-        total_amount_submitted = 0
-        total_amount_refused = 0
-
-        for record in expenses:
-            if record.state == 'draft':
-                total_amount_to_submit += record.total_amount
-            elif record.state == 'reported':
-                total_amount_submitted += record.total_amount
-            elif record.state == 'approved':
-                total_approved_amount += record.total_amount
-            elif record.state == 'done':
-                total_paid_amount += record.total_amount
-            elif record.state == 'refused':
-                total_amount_refused += record.total_amount
-
         """Get the Sorted List"""
         sorted_expense_list = {
             'id': {'label': 'Latest', 'order': 'id desc'},
@@ -91,11 +73,6 @@ class WebsiteForm(http.Controller):
                                    offset=page_details['offset'], )
         values = {}
         values.update({'expenses': expenses,
-                       'to_submit_amount': total_amount_to_submit,
-                       'submitted_amount': total_amount_submitted,
-                       'approved_amount': total_approved_amount,
-                       'paid_amount': total_paid_amount,
-                       'refused_amount': total_amount_refused,
                        'page_name': "expense_page",
                        'pager': page_details,
                        'searchbar_sortings': sorted_expense_list,
