@@ -2,7 +2,7 @@
 <odoo>
     <template id="my_expenses" name="My Expenses">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
+            <div id="wrap" class="oe_structure">
                 <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
                          data-snippet="s_title" data-scroll-background-ratio="1">
                     <div class="o_we_bg_filter bg-black-50"/>
@@ -10,46 +10,112 @@
                         <h1>My Expenses</h1>
                     </div>
                 </section>
+
+                <br/>
+                <style>
+                    .custom-container {
+                    padding-left: 20px;
+                    padding-right: 25px;
+                    }
+                </style>
+                <div class="custom-container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                                <t t-call="portal.portal_table">
+                                    <thead>
+                                        <tr class="active">
+                                            <th>Payment Status</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5>Total Paid</h5>
+                                            </td>
+                                            <td>
+                                                <t t-esc="paid_amount"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Total Approved</h5>
+                                            </td>
+                                            <td>
+                                                <t t-esc="approved_amount"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Total Submitted</h5>
+                                            </td>
+                                            <td>
+                                                <t t-esc="submitted_amount"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>To Be Submit</h5>
+                                            </td>
+                                            <td>
+                                                <t t-esc="to_submit_amount"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Refused Amount</h5>
+                                            </td>
+                                            <td>
+                                                <t t-esc="refused_amount"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </t>
+                            </nav>
+                        </div>
+                        <div class="col-md-9">
+                            <t t-if="expenses" t-call="portal.portal_table">
+                                <thead>
+                                    <tr class="active">
+                                        <th>Expense Date</th>
+                                        <th>Description</th>
+                                        <th class='d-none d-md-table-cell'>Employee</th>
+                                        <th class="text-center">Total Amount</th>
+                                        <th class="text-right">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="expenses" t-as="expense">
+                                        <tr>
+                                            <td>
+                                                <span t-field="expense.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="expense.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="expense.employee_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="expense.total_amount_company"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="expense.state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </t>
+                            <t t-else="">
+                                <p class='o_view_nocontent_smiling_face'>You have no Expenses Yet !!</p>
+                            </t>
+                        </div>
+                    </div>
+
+                </div>
+                <br/>
             </div>
-            <br/>
-            <div class="container">
-                <t t-if="expenses" t-call="portal.portal_table">
-                    <thead>
-                        <tr class="active">
-                            <th>Expense Date</th>
-                            <th>Description</th>
-                            <th class='d-none d-md-table-cell'>Employee</th>
-                            <th class="text-center">Total Amount</th>
-                            <th class="text-right">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="expenses" t-as="expense">
-                            <tr>
-                                <td>
-                                    <span t-field="expense.date"/>
-                                </td>
-                                <td>
-                                    <span t-field="expense.name"/>
-                                </td>
-                                <td>
-                                    <span t-field="expense.employee_id"/>
-                                </td>
-                                <td class="text-center">
-                                    <span t-field="expense.total_amount_company"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="expense.state"/>
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </t>
-                <t t-else="">
-                     <p class='o_view_nocontent_smiling_face'>You have no Expenses Yet !!</p>
-                </t>
-            </div>
-            <br/>
         </t>
     </template>
 </odoo>

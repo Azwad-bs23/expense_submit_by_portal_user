@@ -22,7 +22,8 @@ class WebsiteForm(http.Controller):
     @http.route('/expense/submit', type='http', auth="public", methods=['POST'])
     def create_expense_with_values(self, **kwargs):
         employee = request.env['hr.employee'].sudo().search([('user_id', '=', request.env.user.id)]).id
-        product_uom = request.env['product.product'].sudo().search([('id', '=', int(kwargs.get('product_id', False)))]).uom_id.id
+        product_uom = request.env['product.product'].sudo().search(
+            [('id', '=', int(kwargs.get('product_id', False)))]).uom_id.id
         values = {
             'name': kwargs.get('description', False),
             'product_id': int(kwargs.get('product_id', False)),
@@ -41,8 +42,28 @@ class WebsiteForm(http.Controller):
     @http.route('/my_expenses', type='http', auth='user', website=True)
     def my_expenses_list(self):
         expenses = request.env['hr.expense'].sudo().search([('employee_id.user_id', '=', request.env.user.id)])
+        total_approved_amount = 0
+        total_paid_amount = 0
+        total_amount_to_submit = 0
+        total_amount_submitted = 0
+        total_amount_refused = 0
+        for record in expenses:
+            if record.state == 'draft':
+                total_amount_to_submit += record.total_amount
+            elif record.state == 'reported':
+                total_amount_submitted += record.total_amount
+            elif record.state == 'approved':
+                total_approved_amount += record.total_amount
+            elif record.state == 'done':
+                total_paid_amount += record.total_amount
+            elif record.state == 'refused':
+                total_amount_refused += record.total_amount
         values = {}
-        values.update({'expenses': expenses})
+        values.update({'expenses': expenses,
+                       'to_submit_amount': total_amount_to_submit,
+                       'submitted_amount': total_amount_submitted,
+                       'approved_amount': total_approved_amount,
+                       'paid_amount': total_paid_amount,
+                       'refused_amount': total_amount_refused,
+                       })
         return request.render("bs_expense_web_form.my_expenses", values)
-
-
