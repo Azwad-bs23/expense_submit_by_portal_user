@@ -1,87 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="my_expenses" name="My Expenses">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
-                <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001"
-                         data-snippet="s_title" data-scroll-background-ratio="1">
-                    <div class="o_we_bg_filter bg-black-50"/>
-                    <div class="container">
-                        <h1>My Expenses</h1>
-                    </div>
-                </section>
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
 
-                <br/>
-                <style>
-                    .custom-container {
-                    padding-left: 20px;
-                    padding-right: 25px;
-                    }
-                </style>
-                <div class="custom-container">
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Expenses</t>
+            </t>
+            <div id="wrap" class="oe_structure">
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-3">
-                            <nav class="navbar navbar-expand-md navbar-light bg-light">
-                                <t t-call="portal.portal_table">
-                                    <thead>
-                                        <tr class="active">
-                                            <th>Payment Status</th>
-                                            <th>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h5>Total Paid</h5>
-                                            </td>
-                                            <td>
-                                                <t t-esc="paid_amount"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h5>Total Approved</h5>
-                                            </td>
-                                            <td>
-                                                <t t-esc="approved_amount"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h5>Total Submitted</h5>
-                                            </td>
-                                            <td>
-                                                <t t-esc="submitted_amount"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h5>To Be Submit</h5>
-                                            </td>
-                                            <td>
-                                                <t t-esc="to_submit_amount"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h5>Refused Amount</h5>
-                                            </td>
-                                            <td>
-                                                <t t-esc="refused_amount"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </t>
-                            </nav>
-                        </div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <t t-if="expenses" t-call="portal.portal_table">
                                 <thead>
                                     <tr class="active">
                                         <th>Expense Date</th>
                                         <th>Description</th>
                                         <th class='d-none d-md-table-cell'>Employee</th>
-                                        <th class="text-center">Total Amount</th>
+                                        <th>Total Amount</th>
                                         <th class="text-right">Status</th>
                                     </tr>
                                 </thead>
@@ -97,7 +33,7 @@
                                             <td>
                                                 <span t-field="expense.employee_id"/>
                                             </td>
-                                            <td class="text-center">
+                                            <td>
                                                 <span t-field="expense.total_amount_company"/>
                                             </td>
                                             <td class="text-right">
